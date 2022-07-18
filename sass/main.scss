@@ -1,0 +1,21 @@
+// custom variables
+$altlight: #d0cece;
+$lightgreen: #03ce03;
+$primary: #282828;
+
+// functions and variables
+@import "../node_modules/bootstrap/scss/_functions.scss";
+@import "../node_modules/bootstrap/scss/_variables.scss";
+
+// theme colors
+$custom-themes-colors: (
+  "lightgreen": #03ce03,
+  "darkgreen": #05b005,
+  "maindark": #282828,
+  "altlight": #d0cece,
+  "grey": #797878,
+);
+
+$theme-colors: map-merge($custom-themes-colors, $theme-colors);
+
+@import "../node_modules/bootstrap/scss/bootstrap";
