@@ -9,8 +9,8 @@
         <div class="navbar-nav">
           <router-link class="nav-link active" aria-current="page" to="/">Home</router-link>
           <a class="nav-link" href="#">Features</a>
-          <router-link class="nav-link" v-show="authUser" to="/twojekonto">Twoje Konto</router-link>
-          <router-link v-show="!authUser" class="btn btn-outline-success me-2" to="/zarejestruj" type="button">Zarejestruj się</router-link>
+          <router-link class="nav-link" v-if="authId" to="/twojekonto">Twoje Konto</router-link>
+          <router-link v-else class="btn btn-outline-success me-2" to="/zarejestruj" type="button">Zarejestruj się</router-link>
         </div>
       </div>
     </div>
@@ -23,7 +23,7 @@ import { mapState } from 'vuex'
 export default {
   name: "TheNavbar",
   computed: {
-    ...mapState('auth', ["authUser"])
+    ...mapState('auth', ["authId"])
   }
 }
 </script>

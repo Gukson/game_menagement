@@ -1,8 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import store from '@/store'
-// firebase
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import store from '../store'
+
 
 
 const routes = [
@@ -19,6 +18,7 @@ const routes = [
   {
     path: '/twojekonto',
     name: 'AuthAccount',
+    meta: { requiresAuth: true},
     component: () => import(/* webpackChunkName: "about" */ '../views/AccountView.vue')
   },
   {
@@ -34,16 +34,10 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to) => {
-  const auth = getAuth();
-  console.log(to)
-  // badanie czy jest auth user
-  await onAuthStateChanged(auth, (user) => {
-    if (user) {
-      store.dispatch('auth/FetchAuthUser', {userId: user.uid})
-    } else {
-      router.push('/zarejestruj')
-    }
-  });
+  await store.dispatch('auth/InitAuthentication')
+  if (to.meta.requiresAuth && !store.state.auth.authId) {
+    router.push('/zarejestruj')
+  }
 })
 
 export default router

@@ -1,7 +1,8 @@
 // auth
-import {createUserWithEmailAndPassword, getAuth} from "firebase/auth";
+import {createUserWithEmailAndPassword, getAuth, onAuthStateChanged} from "firebase/auth";
 // database
 import { getDatabase, ref, set, onValue } from "firebase/database";
+
 
 
 export default {
@@ -20,6 +21,16 @@ export default {
             const result = await createUserWithEmailAndPassword(auth, email, password)
             await dispatch('CreateUser', { id: result.user.uid, email, password, username } )
         },
+        async InitAuthentication({dispatch}) {
+            const auth = getAuth();
+            await onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    dispatch('FetchAuthUser')
+                } else {
+                    return null
+                }
+            });
+        },
         async CreateUser({state}, {id, email, password, username}) {
             state.authUser = {id, email, password, username}
             const db = getDatabase()
@@ -30,19 +41,22 @@ export default {
                 userId: id
             })
         },
-        async FetchAuthUser({state}, {userId}) {
-            console.log(userId)
+        async FetchAuthUser({commit}) {
             const db = getDatabase();
+            const auth = getAuth();
+            const userId = auth.currentUser?.uid;
+            if (!userId) return
             const authUser = ref(db,'users/' + userId);
             onValue(authUser, (snapshot) => {
-                const data = snapshot.val();
-                console.log(data)
-                state.authUser = data
+                commit('setAuthUser', {user: snapshot.val(), id: userId})
             });
         }
     },
 
     mutations: {
-
+        setAuthUser(state, {user, id}) {
+            state.authUser = user
+            state.authId = id
+        }
     }
 }

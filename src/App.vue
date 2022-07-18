@@ -16,11 +16,15 @@ body {
 </style>
 <script>
 import TheNavbar from "@/components/TheNavbar";
+import { mapActions } from 'vuex'
 
 export default {
   components: {TheNavbar},
+  methods: {
+    ...mapActions('auth', ['FetchAuthUser'])
+  },
   created() {
-
+    this.FetchAuthUser()
   }
 }
 </script>
