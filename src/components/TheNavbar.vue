@@ -9,8 +9,9 @@
         <div class="navbar-nav">
           <router-link class="nav-link active" aria-current="page" to="/">Home</router-link>
           <a class="nav-link" href="#">Features</a>
-          <router-link class="nav-link" v-if="authId" to="/twojekonto">Twoje Konto</router-link>
-          <router-link v-else class="btn btn-outline-success me-2" to="/zarejestruj" type="button">Zarejestruj się</router-link>
+          <router-link class="nav-link" to="/twojekonto">Twoje Konto</router-link>
+          <button class="btn btn-outline-danger me-2" v-if="authId" @click="SigningOut">Wyloguj</button>
+          <router-link v-else class="btn btn-outline-success me-2" to="/zaloguj" type="button">Zaloguj się</router-link>
         </div>
       </div>
     </div>
@@ -18,12 +19,19 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import {mapActions, mapState} from 'vuex'
 
 export default {
   name: "TheNavbar",
   computed: {
-    ...mapState('auth', ["authId"])
+    ...mapState('auth', ["authId"]),
+  },
+  methods: {
+    ...mapActions('auth', ['SignOut']),
+    async SigningOut() {
+      await this.SignOut()
+      this.$router.push('/')
+    }
   }
 }
 </script>
