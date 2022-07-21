@@ -7,12 +7,12 @@ import store from '../store'
 const routes = [
   {
     path: '/',
-    name: 'home',
+    name: 'Home',
     component: HomeView
   },
   {
     path: '/about',
-    name: 'about',
+    name: 'About',
     component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
   },
   {
@@ -25,6 +25,11 @@ const routes = [
     path: '/zarejestruj',
     name: 'SignUp',
     component: () => import('../views/SignUpPage.vue')
+  },
+  {
+    path: '/zaloguj',
+    name: 'SignIn',
+    component: () => import('../views/SignInPage.vue')
   }
 ]
 
@@ -36,7 +41,7 @@ const router = createRouter({
 router.beforeEach(async (to) => {
   await store.dispatch('auth/InitAuthentication')
   if (to.meta.requiresAuth && !store.state.auth.authId) {
-    router.push('/zarejestruj')
+    return { name: 'SignIn', query: { redirectTo: to.path } }
   }
 })
 

@@ -2,6 +2,8 @@ import { createStore } from 'vuex'
 
 // modules
 import auth from "./modules/auth";
+import users from "@/store/modules/users";
+import tournaments from "@/store/modules/tournaments";
 
 
 export default createStore({
@@ -14,6 +16,8 @@ export default createStore({
   actions: {
   },
   modules: {
-    auth
+    auth,
+    users,
+    tournaments
   }
 })

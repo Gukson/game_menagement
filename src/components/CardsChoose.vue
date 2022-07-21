@@ -1,6 +1,6 @@
 <template>
-  <div class="row g-md-4 py-5">
-    <div class="col-md-4 col-12" v-for="(card, index) in cards" :key="index">
+  <div class="row g-md-4 py-4">
+    <div class="col-md-3 mx-auto col-10" v-for="(card, index) in cards" :key="index">
       <div class="card p-2">
         <img :src="card.img" class="card-img-top" alt="...">
         <div class="card-body" style="color: #d0cece">

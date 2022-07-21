@@ -1,5 +1,7 @@
 // auth
-import {createUserWithEmailAndPassword, getAuth, onAuthStateChanged} from "firebase/auth";
+import {createUserWithEmailAndPassword, getAuth,
+    onAuthStateChanged, signInWithEmailAndPassword, signOut}
+    from "firebase/auth";
 // database
 import { getDatabase, ref, set, onValue } from "firebase/database";
 
@@ -31,8 +33,9 @@ export default {
                 }
             });
         },
-        async CreateUser({state}, {id, email, password, username}) {
-            state.authUser = {id, email, password, username}
+        async CreateUser({commit}, {id, email, password, username}) {
+            const user = {id, email, password, username}
+            commit('setAuthUser', {user, id})
             const db = getDatabase()
             await set(ref(db, 'users/' + id), {
                 username,
@@ -49,6 +52,25 @@ export default {
             const authUser = ref(db,'users/' + userId);
             onValue(authUser, (snapshot) => {
                 commit('setAuthUser', {user: snapshot.val(), id: userId})
+            });
+        },
+        async signInWithEmailAndPassword({dispatch}, {email, password}) {
+            const auth = getAuth();
+            signInWithEmailAndPassword(auth, email, password)
+                .then((user) => {
+                    if (!user) return
+                    dispatch('FetchAuthUser')
+                })
+                .catch((error) => {
+                    console.log(error)
+                });
+        },
+        async SignOut( {commit} ) {
+            const auth = getAuth();
+            signOut(auth).then(() => {
+                commit('setAuthUser', {user: null, id: ''})
+            }).catch((error) => {
+                console.log(error)
             });
         }
     },

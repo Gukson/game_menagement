@@ -9,7 +9,18 @@ import './registerServiceWorker'
 import router from './router'
 import store from './store'
 
+// components
+import Datepicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
+
+
 initializeApp(firebaseConfig);
 
-createApp(App).use(store).use(router).mount('#app')
+createApp(App)
+    .use(store)
+    .use(router)
+    .component('Datepicker', Datepicker)
+    .mount('#app')
+
+
 import "bootstrap/dist/js/bootstrap.js"
