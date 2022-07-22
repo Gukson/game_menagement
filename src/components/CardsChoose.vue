@@ -41,9 +41,5 @@ export default {
   background-color:#151414;
   border: none;
   transition: all .2s ease-in-out;
-  &:hover {
-    transform: scale(1.1);
-    border: 3px solid #05b005;
-  }
 }
 </style>

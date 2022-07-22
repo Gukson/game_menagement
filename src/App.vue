@@ -1,6 +1,7 @@
 <template>
   <TheNavbar/>
   <router-view :key="`${$route.path}${JSON.stringify($route.query)}`"/>
+  <TheFooter/>
 </template>
 
 <style lang="scss">
@@ -16,10 +17,11 @@ body {
 </style>
 <script>
 import TheNavbar from "@/components/TheNavbar";
-import { mapActions } from 'vuex'
+import {mapActions} from 'vuex'
+import TheFooter from "@/components/TheFooter";
 
 export default {
-  components: {TheNavbar},
+  components: {TheFooter, TheNavbar},
   methods: {
     ...mapActions('auth', ['FetchAuthUser'])
   },
