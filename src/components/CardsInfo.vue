@@ -7,6 +7,7 @@
           <h5 class="card-title">Card title</h5>
           <p class="card-text">{{card.info}}</p>
           <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+
         </div>
       </div>
     </div>
