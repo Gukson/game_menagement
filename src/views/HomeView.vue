@@ -2,6 +2,7 @@
   <div class="container w-md-50 pt-3">
     <h1 class="text-white-50 display-3 my-5 title text-center">Twoja platforma do tworzenia meczy online</h1>
     <GameSlider/>
+    <h1 class="text-white-50 display-4 my-5 title text-center">Rywalizuj z innymi graczami w swoich ulubionych grach!</h1>
     <CardsInfo/>
     <CardsChoose/>
   </div>
@@ -13,6 +14,7 @@
 import CardsChoose from "@/components/CardsChoose";
 import CardsInfo from "@/components/CardsInfo";
 import GameSlider from "@/components/GameSlider";
+
 export default {
   name: 'HomeView',
   components: {

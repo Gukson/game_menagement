@@ -4,10 +4,8 @@
       <div class="card">
         <img class="card-img-top" :src="card.img" alt="Card image cap">
         <div class="card-body" style="color: #d0cece">
-          <h5 class="card-title">Card title</h5>
+          <h5 class="card-title text-center">{{card.title}}</h5>
           <p class="card-text">{{card.info}}</p>
-          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-
         </div>
       </div>
     </div>
@@ -22,18 +20,22 @@ export default {
     return {
       cards: [
         {
-          info: 'Some quick example text to build on the card title and make up the bulk of',
-          img: 'https://material.io/static/assets/result.png'
+          title: 'TFT: Teamfight Tactics',
+          info: 'Szachy',
+          img: 'https://play-lh.googleusercontent.com/gN1MLe5Weu-jN1PPPD2wJVVGWQOOpQVvPuMy7CU2JecziGWMqTB5CBuYP8_InXIsWQ_0'
         },
         {
+          title: 'League of Legends',
           info: 'Some quick example text to build on the card title and make up the bulk of',
-          img: 'https://material.io/static/assets/result.png'
+          img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/LoL_icon.svg/2048px-LoL_icon.svg.png'
         },
         {
+          title: 'Team Fight Tactics',
           info: 'Some quick example text to build on the card title and make up the bulk of',
-          img: 'https://material.io/static/assets/result.png'
+          img: 'https://www.freeiconspng.com/thumbs/csgo-icon/csgo-icon-1.png'
         },
         {
+          title: 'Team Fight Tactics',
           info: 'Some quick example text to build on the card title and make up the bulk of',
           img: 'https://material.io/static/assets/result.png'
         },
