@@ -4,7 +4,7 @@
       <div class="card p-2">
         <img :src="card.img" class="card-img-top" alt="...">
         <div class="card-body" style="color: #d0cece">
-          <h5 class="card-title">Card title</h5>
+          <h5 class="card-title">{{card.title}}</h5>
           <p class="card-text">{{card.message}}</p>
         </div>
       </div>
@@ -19,14 +19,17 @@ export default {
     return {
       cards: [
         {
+          title: '',
+          message: 'Regularne turnieje esportowe z wieloma nagrodami nie tylko w postaci sprzętu ale i wejściówek na eventy esportowe.',
+          img: 'https://cdn.worldvectorlogo.com/logos/css-3.svg'
+        },
+        {
+          title: '',
           message: '>This is a longer card with supporting text below as a natural lead-in to additional content.',
           img: 'https://cdn.worldvectorlogo.com/logos/css-3.svg'
         },
         {
-          message: '>This is a longer card with supporting text below as a natural lead-in to additional content.',
-          img: 'https://cdn.worldvectorlogo.com/logos/css-3.svg'
-        },
-        {
+          title: '',
           message: '>This is a longer card with supporting text below as a natural lead-in to additional content.',
           img: 'https://cdn.worldvectorlogo.com/logos/css-3.svg'
         }

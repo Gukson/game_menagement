@@ -11,9 +11,7 @@ body {
 }
 #app {
   font-family: 'Open Sans', sans-serif;
-
 }
-
 </style>
 <script>
 import TheNavbar from "@/components/TheNavbar";
