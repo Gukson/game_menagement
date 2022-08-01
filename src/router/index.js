@@ -1,6 +1,7 @@
-import {createRouter, createWebHistory} from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import store from '../store'
+
 
 
 const routes = [
@@ -13,11 +14,6 @@ const routes = [
     path: '/about',
     name: 'About',
     component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  },
-  {
-    path: '/turnieje',
-    name: 'Tournaments',
-    component: () => import(/* webpackChunkName: "about" */ '../views/TournamentsView.vue')
   },
   {
     path: '/twojekonto',
@@ -48,5 +44,6 @@ router.beforeEach(async (to) => {
     return { name: 'SignIn', query: { redirectTo: to.path } }
   }
 })
+
 
 export default router
