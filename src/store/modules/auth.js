@@ -3,7 +3,7 @@ import {createUserWithEmailAndPassword, getAuth,
     onAuthStateChanged, signInWithEmailAndPassword, signOut}
     from "firebase/auth";
 // database
-import { getDatabase, ref, set, onValue } from "firebase/database";
+import { getDatabase, ref, set, child, get } from "firebase/database";
 
 
 
@@ -23,16 +23,29 @@ export default {
             const result = await createUserWithEmailAndPassword(auth, email, password)
             await dispatch('CreateUser', { id: result.user.uid, email, password, username } )
         },
-        async InitAuthentication({dispatch}) {
-            const auth = getAuth();
-            await onAuthStateChanged(auth, (user) => {
-                if (user) {
-                    dispatch('FetchAuthUser')
-                } else {
-                    return null
-                }
-            });
-        },
+        InitAuthentication({dispatch, commit}) {
+            return new Promise((resolve) => {
+                const auth = getAuth();
+                 onAuthStateChanged(auth, async (user) => {
+                    if (user) {
+                        commit('setAuthId', user.uid)
+                        await dispatch('FetchAuthUser')
+                        resolve(user)
+                    }else {
+                        resolve(null)
+                    }
+                })
+
+        })},
+            // const auth = getAuth();
+            // await onAuthStateChanged(auth, (user) => {
+            //     if (user) {
+            //         commit('setAuthId', user.uid)
+            //         dispatch('FetchAuthUser')
+            //     } else {
+            //         return null
+            //     }
+            // });
         async CreateUser({commit}, {id, email, password, username}) {
             const user = {id, email, password, username}
             commit('setAuthUser', {user, id})
@@ -45,18 +58,32 @@ export default {
             })
         },
         async FetchAuthUser({commit}) {
-            const db = getDatabase();
+            const dbRef = ref(getDatabase());
             const auth = getAuth();
             const userId = auth.currentUser?.uid;
-            if (!userId) return
-            const authUser = ref(db,'users/' + userId);
-            onValue(authUser, (snapshot) => {
-                commit('setAuthUser', {user: snapshot.val(), id: userId})
+            await get(child(dbRef, `users/${userId}`))
+                .then((snapshot) => {
+                if (snapshot.exists()) {
+                    commit('setAuthUser', { user: snapshot.val(), id: userId})
+                    // console.log(snapshot.val());
+                } else {
+                    // console.log("No data available");
+                }
+            }).catch((error) => {
+                console.error(error);
             });
+            // const db = getDatabase();
+            // const auth = getAuth();
+            // const userId = auth.currentUser?.uid;
+            // if (!userId) return
+            // const authUser = ref(db,'users/' + userId);
+            // await onValue(authUser, (snapshot) => {
+            //     commit('setAuthUser', {user: snapshot.val(), id: userId})
+            // });
         },
-        async signInWithEmailAndPassword({dispatch}, {email, password}) {
+        async SignInWithEmailAndPassword({dispatch}, {email, password}) {
             const auth = getAuth();
-            signInWithEmailAndPassword(auth, email, password)
+            await signInWithEmailAndPassword(auth, email, password)
                 .then((user) => {
                     if (!user) return
                     dispatch('FetchAuthUser')
@@ -76,8 +103,11 @@ export default {
     },
 
     mutations: {
-        setAuthUser(state, {user, id}) {
+        setAuthUser(state, {user}) {
             state.authUser = user
+        },
+        setAuthId(state, id) {
+            console.log(id)
             state.authId = id
         }
     }
