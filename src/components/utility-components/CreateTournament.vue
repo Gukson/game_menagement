@@ -56,7 +56,6 @@ export default {
   },
   methods: {
     async CreateTournament() {
-      console.log('submitting')
       // obiekt turnieju
       const tournamentObject = {...this.tournament, authorId: this.authId,  invited: this.GetInvitedUsers}
       // akcja z dodaniem do bazy danych

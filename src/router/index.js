@@ -1,6 +1,6 @@
 import {createRouter, createWebHistory} from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import store from '../store'
+import store from '@/store'
 
 
 const routes = [
@@ -44,8 +44,11 @@ const router = createRouter({
 
 router.beforeEach(async (to) => {
   await store.dispatch('auth/InitAuthentication')
+
   if (to.meta.requiresAuth && !store.state.auth.authId) {
-    return { name: 'SignIn', query: { redirectTo: to.path } }
+
+    return { name: 'SignIn', query: { redirectTo: to.fullPath } }
+
   }
 })
 
