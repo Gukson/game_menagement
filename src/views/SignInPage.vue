@@ -38,10 +38,13 @@ export default {
       }
     }
   },
+  created() {
+    this.$emit('ready')
+  },
   methods: {
     async SignIn() {
       try {
-        await this.$store.dispatch('auth/signInWithEmailAndPassword', { ...this.form })
+        await this.$store.dispatch('auth/SignInWithEmailAndPassword', { ...this.form })
         this.SuccessRedirect()
       }catch (error) {
         console.log(error)

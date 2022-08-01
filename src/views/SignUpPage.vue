@@ -42,6 +42,9 @@ export default {
       }
     }
   },
+  created() {
+    this.$emit('ready')
+  },
   methods: {
     async SignUp() {
       await this.$store.dispatch('auth/RegisterUserWithEmailAndPassword', this.form)

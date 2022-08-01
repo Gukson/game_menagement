@@ -19,6 +19,9 @@ export default {
     GameSlider,
     CardsInfo,
     CardsChoose
+  },
+  created() {
+    this.$emit('ready')
   }
 }
 </script>

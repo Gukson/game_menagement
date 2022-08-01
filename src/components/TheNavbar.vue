@@ -10,7 +10,7 @@
           <router-link class="nav-link active" aria-current="page" to="/">Home</router-link>
           <a class="nav-link" href="#">Features</a>
           <router-link class="nav-link" to="/twojekonto">Twoje Konto</router-link>
-          <button class="btn btn-outline-danger me-2" v-if="authId" @click="SigningOut">Wyloguj</button>
+          <button class="btn float-end btn-outline-danger me-2" v-if="authId" @click="SigningOut">Wyloguj</button>
           <router-link v-else class="btn btn-outline-success me-2" to="/zaloguj" type="button">Zaloguj się</router-link>
         </div>
       </div>
