@@ -2,7 +2,7 @@
   <div class="container pt-xxl-5 h-100">
     <div class="container my-5 title text-center border bg-light height">
       League of Legends
-      <div class="open" > > </div>
+      <div class="open" > <DropDown  :items="tournaments_list"></DropDown></div>
     </div>
     <div class="container my-5 title text-center border bg-light height">
       TFT:
@@ -10,15 +10,13 @@
     </div>
     <div class="container my-5 title text-center border bg-light height">
       CS:GO
-      <div class="open" > > </div>
-
+      <div class="open" > <DropDown  :items="tournaments_list"></DropDown></div>
     </div>
   </div>
 </template>
-
 <script>
-import DropDown from './DropDown'
 
+import DropDown from './DropDown'
 export default {
   name: "TheTournaments",
   components:
@@ -42,8 +40,8 @@ export default {
   }
 }
 </script>
-
 <style>
+
 .height{
   height: 100px;
 }
